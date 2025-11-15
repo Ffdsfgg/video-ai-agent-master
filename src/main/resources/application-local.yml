@@ -1,0 +1,7 @@
+ai:
+  dashscope:
+    api-key: XXX # 阿里云官网注册获取API-KEY
+    model: qwen-plus # 使用 Qwen-Plus 模型
+search:
+  api:
+    key: XXX  # https://www.searchapi.io/ 网页搜索，注册获取API-KEY

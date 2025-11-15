@@ -1,0 +1,16 @@
+# Maven
+target/
+.mvn/
+
+# Node.js / 前端
+web-teaching-video/node_modules/
+web-teaching-video/dist/
+web-teaching-video/.env.local
+web-teaching-video/.env
+
+# IDE
+.vscode/
+.idea/
+*.iml
+.DS_Store
+*.log

@@ -1,0 +1,88 @@
+spring:
+  application:
+    name: video-ai-agent
+  profiles:
+    active: local
+  
+  # Redis配置 (用于缓存和会话管理)
+  data:
+    redis:
+      host: 127.0.0.1
+      password: XXX
+      port: 6379
+      database: 1
+  
+  # Spring AI配置
+  ai:
+    dashscope:
+      api-key: ${ai.dashscope.api-key}
+      chat:
+        options:
+          model: qwen-plus
+    chat:
+      client:
+        enabled: false #禁止ChatClient.Builder的自动装配，可自动实例化多个模型
+    # 向量数据库配置 (使用 pgvector)
+    vectorstore:
+      pgvector:
+        distance-type: COSINE_DISTANCE
+        dimensions: 1536
+        max-document-batch-size: 10000 # Optional: Maximum number of documents per batch
+        table-name: vector_store
+        index-type: HNSW
+
+  # 数据库配置
+  datasource:
+    url: jdbc:postgresql://82.157.30.217:5432/postgres?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: XXX
+    password: XXX
+    driver-class-name: org.postgresql.Driver
+
+#  # 参数名保留配置
+  main:
+    keep-alive: true
+    parameters-name-discovery-enabled: true
+
+server:
+  port: 8082
+  servlet:
+    context-path: /
+
+search:
+  api:
+    key: ${search.api.key} # https://www.searchapi.io/ 网页搜索，注册获取API-KEY
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    com.lilei.leiaiagent: DEBUG
+    org.springframework.web: INFO
+    com.github.xiaoymin.knife4j: DEBUG
+
+
+# MVC配置
+mvc:
+  pathmatch:
+    matching-strategy: ANT_PATH_MATCHER
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.lilei.leiaiagent.controller
+
+# knife4j的增强配置
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+
+
