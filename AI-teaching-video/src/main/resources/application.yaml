@@ -1,0 +1,96 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/plain
+--- #
+spring:
+  application:
+    name: AI-teaching-video
+  profiles:
+    active: test
+  # caffeine cache configuration
+  cache:
+    type: caffeine
+    file: assets/cache
+  # 传输的配置
+  servlet:
+    multipart:
+      max-file-size: 4096MB
+      max-request-size: 4096MB
+--- # mybatis-plus
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+    # 可选：启用自动映射（确保字段名匹配）
+    mapUnderscoreToCamelCase: true
+  type-aliases-package: com.hip.aiteachingvideo.pojo
+  global-config:
+    db-config:
+      logic-delete-field: isDeleted
+      id-type: auto
+      key-generator:
+        id-type: auto
+
+
+--- # Logging
+logging:
+  logback:
+    rollingpolicy:
+      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz
+      time-based-triggering-policy:
+        interval: 3
+      max-history: 4
+  level:
+    org.springbootapp: DEBUG
+    com.baomidou: DEBUG
+  file:
+    path: src/main/resources/log
+
+--- # knife4j http://127.0.0.1:8080/doc.html
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+
+--- # springdoc-openapi
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.hip.aiteachingvideo.controller
+
+--- # my-config
+hip:
+  aliyun:
+    bash-url: https://dashscope.aliyuncs.com
+    key: XXX
+    quen-vl: # https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+      url: /compatible-mode/v1/chat/completions
+      model: qwen-vl-max-latest
+    qwen-plus:
+      url: /compatible-mode/v1/chat/completions
+      model: qwen-plus
+    oss:
+      endpoint: oss-cn-beijing.aliyuncs.com
+      accessKeyId: XXX
+      accessKeySecret: XXX
+      bucketName: web-titas6
+      baseUrl: https://web-titas6.oss-cn-beijing.aliyuncs.com/
+  tencent:
+    asr:
+      secret-id: XXX
+      secret-key: XXX
+  jwt:
+    admin-secret-key: ASFsAGEk
+    admin-ttl: 7200000
+  location: http://XXX:8080/static
