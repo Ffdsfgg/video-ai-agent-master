@@ -58,7 +58,6 @@
 <div align="center">
   <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
     <img src="images/屏幕截图%202025-11-16%20000143.png" alt="后台管理1" width="400" height="267">
-    <img src="images/屏幕截图%202025-11-16%20000152.png" alt="后台管理2" width="400" height="267">
     <img src="images/屏幕截图%202025-11-16%20000200.png" alt="后台管理3" width="400" height="267">
   </div>
 </div>
